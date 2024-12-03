@@ -1,2 +1,2 @@
 # Docker
-Execise that help you learn Docker.
+Pratice exercises that help you learn Docker.
