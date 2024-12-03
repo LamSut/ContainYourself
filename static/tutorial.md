@@ -8,11 +8,11 @@ docker images
 ```
 ### Tag image
 ```bash
-docker tag moomoo:v1 lamsut007/moomoo  
+docker tag moomoo:v1 <username>/moomoo  
 ```
 ### Push image to Docker Hub
 ```bash
-docker push lamsut007/moomoo:v1  
+docker push <username>/moomoo:v1  
 ```
 ### Run container
 ```bash
