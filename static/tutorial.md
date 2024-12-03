@@ -1,28 +1,28 @@
-### Build Image
+### Build image
 ```bash
 docker build -t moomoo:v1 .
 ```
-### List Images
+### List images
 ```bash
 docker images
 ```
-### Tag Image
+### Tag image
 ```bash
 docker tag moomoo:v1 lamsut007/moomoo  
 ```
-### Push Image To Docker Hub
+### Push image to Docker Hub
 ```bash
 docker push lamsut007/moomoo:v1  
 ```
-### Run Container
+### Run container
 ```bash
 docker run -d -p 6969:80 moomoo:v1
 ```
-### List Containers
+### List containers
 ```bash
 docker ps
 ```
-### Stop Container
+### Stop container
 ```bash
 docker stop <containerid>
 ```
