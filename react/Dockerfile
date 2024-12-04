@@ -1,5 +1,5 @@
 # base image node for build stage
-FROM node:16-alpine AS build
+FROM node:23-alpine AS build
 
 # working directory of container is /app
 WORKDIR /app
