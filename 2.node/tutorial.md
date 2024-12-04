@@ -1,12 +1,12 @@
-### Clone a React repository
+### Clone a Node repository
 ```bash
 git clone https://github.com/LamSut/ContactBook-BE repo
 ```
-### Copy Dockerfile to React repository
+### Copy Dockerfile to Node repository
 ```bash
 cp Dockerfile repo
 ```
-### Change the working directory to React repository
+### Change the working directory to Node repository
 ```bash
 cd repo
 ```

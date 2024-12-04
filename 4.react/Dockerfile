@@ -19,14 +19,14 @@ RUN npm run build
 
 ## RUN STAGE ##
 
-# base image nginx for run stage
+# base image Nginx for run stage
 FROM nginx:1.27.3-alpine
 
-# copy built react app to nginx html
+# copy built React app to Nginx html
 COPY --from=build /app/build /usr/share/nginx/html
 
-# expose port 80 for nginx
+# expose port 80 for Nginx
 EXPOSE 80
 
-# run nginx with daemon off (ensure the container remains active if nginx is running)
+# run nginx with daemon off (ensure the container remains active if Nginx is running)
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
