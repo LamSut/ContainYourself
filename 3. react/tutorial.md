@@ -12,7 +12,7 @@ cd repo
 ```
 ### Build image
 ```bash
-docker build -t react:v1 .
+docker build -t react:<tag> .
 ```
 ### List images
 ```bash
@@ -20,15 +20,15 @@ docker images
 ```
 ### Tag image
 ```bash
-docker tag react:v1 <username>/react:v1 
+docker tag react:<tag> <username>/react:<tag> 
 ```
 ### Push image to Docker Hub
 ```bash
-docker push <username>/react:v1  
+docker push <username>/react:<tag>  
 ```
 ### Run container
 ```bash
-docker run -d -p 6969:80 react:v1
+docker run -d -p 6969:80 react:<tag>
 ```
 ### List containers
 ```bash

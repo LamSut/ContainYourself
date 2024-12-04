@@ -20,7 +20,7 @@ docker images
 ```
 ### Tag image
 ```bash
-docker tag react:v1 <username>/node:<tag>
+docker tag node:<tag> <username>/node:<tag>
 ```
 ### Push image to Docker Hub
 ```bash
