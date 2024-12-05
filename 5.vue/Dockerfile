@@ -19,7 +19,7 @@ RUN npm run build
 
 ## RUN STAGE ##
 
-# base image nginx for run stage
+# base image Nginx for run stage
 FROM nginx:1.27.3-alpine
 
 # remove the existing /run directory if it exists

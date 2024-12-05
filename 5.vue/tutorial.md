@@ -2,9 +2,9 @@
 ```bash
 git clone https://github.com/LamSut/ContactBook-FE repo
 ```
-### Copy Dockerfile to Vue repository
+### Copy Dockerfile & Nginx config file to Vue repository
 ```bash
-cp Dockerfile repo
+cp Dockerfile repo && cp nginx.conf repo
 ```
 ### Change the working directory to Vue repository
 ```bash
