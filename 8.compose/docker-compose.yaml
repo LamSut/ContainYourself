@@ -1,0 +1,52 @@
+version: "3.9"
+
+services:
+  # Frontend service
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "443:443"
+    depends_on:
+      - backend
+    environment:
+      - NODE_ENV=production
+
+  # Backend service
+  backend:
+    build:
+      context: ./backend-api
+      dockerfile: Dockerfile
+    working_dir: /app
+    volumes:
+      - ./backend-api:/app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=localhost
+      - DB_PORT=3308
+      - DB_USER=root
+      - DB_PASSWORD=1
+      - DB_NAME=pizza
+    depends_on:
+      - mysql # wait MySQL ready first
+
+  # MySQL database service
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 1
+      MYSQL_DATABASE: pizza
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 1
+    ports:
+      - "3308:3308"
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:

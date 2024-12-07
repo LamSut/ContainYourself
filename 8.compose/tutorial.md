@@ -1,40 +1,16 @@
 ### Clone a Vue repository
 ```bash
-git clone https://github.com/LamSut/ContactBook-FE repo
+git clone https://github.com/LamSut/PizzaGout repo
 ```
 ### Copy Dockerfile to Vue repository
 ```bash
-cp Dockerfile repo
+cp docker-compose.yaml repo
 ```
 ### Change the working directory to Vue repository
 ```bash
 cd repo
 ```
-### Build image
+### Build compose
 ```bash
-docker build -t vue:<tag> .
-```
-### List images
-```bash
-docker images
-```
-### Tag image
-```bash
-docker tag vue:<tag> <username>/vue:<tag> 
-```
-### Push image to Docker Hub
-```bash
-docker push <username>/vue:<tag>  
-```
-### Run container
-```bash
-docker run -d -p 443:443 vue:<tag>
-```
-### List containers
-```bash
-docker ps
-```
-### Stop container
-```bash
-docker stop <containerid>
+docker-compose -f docker-compose.yaml up -d --build
 ```
