@@ -14,3 +14,11 @@ cd repo
 ```bash
 docker-compose -f docker-compose.yaml up -d --build
 ```
+### Stop compose
+```bash
+docker stop $(docker ps -aq)
+```
+### Remove compose
+```bash
+docker rm $(docker ps -aq)
+```
