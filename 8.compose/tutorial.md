@@ -6,6 +6,10 @@ git clone https://github.com/LamSut/PizzaGout repo
 ```bash
 cp docker-compose.yaml repo
 ```
+### Copy SQL file to repository
+```bash
+cp pizza.sql repo
+```
 ### Replace Vite proxy config
 ```bash
 cp vite.config.js repo/frontend
