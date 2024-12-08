@@ -8,10 +8,10 @@ services:
       dockerfile: Dockerfile
     ports:
       - "5173:5173"
-    depends_on:
-      - backend
     environment:
       - NODE_ENV=development
+    networks:
+      - app-network
 
   # Backend service
   backend:
@@ -29,6 +29,8 @@ services:
       - DB_NAME=pizza
     depends_on:
       - mysql # wait MySQL ready first
+    networks:
+      - app-network
 
   # MySQL database service
   mysql:
@@ -44,6 +46,13 @@ services:
       - "3308:3308"
     volumes:
       - db_data:/var/lib/mysql
+    networks:
+      - app-network
 
 volumes:
   db_data:
+
+
+networks:
+  app-network:
+    driver: bridge

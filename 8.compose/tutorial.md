@@ -2,11 +2,15 @@
 ```bash
 git clone https://github.com/LamSut/PizzaGout repo
 ```
-### Copy Dockerfile to Vue repository
+### Copy Docker Compose file to repository
 ```bash
 cp docker-compose.yaml repo
 ```
-### Change the working directory to Vue repository
+### Replace Vite proxy config
+```bash
+cp vite.config.js repo/frontend
+```
+### Change the working directory to repository
 ```bash
 cd repo
 ```
