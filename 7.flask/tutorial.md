@@ -1,12 +1,12 @@
-### Clone a Vue repository
+### Clone a Flask repository
 ```bash
 git clone https://github.com/LamSut/cicd_tutorial repo
 ```
-### Copy Dockerfile to Vue repository
+### Copy Dockerfile to Flask repository
 ```bash
 cp Dockerfile repo
 ```
-### Change the working directory to Vue repository
+### Change the working directory to Flask repository
 ```bash
 cd repo
 ```
