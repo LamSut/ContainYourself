@@ -26,3 +26,23 @@ docker ps
 ```bash
 docker stop <containerid>
 ```
+### Run in Minikube
+```bash
+minikube kubectl -- apply -f moomoo-deployment.yaml
+```
+### Check Minikube pods
+```bash
+minikube kubectl -- get pods
+```
+### Find Minikube service URL
+```bash
+minikube service list
+```
+### Delete Minikube deployment
+```bash
+minikube kubectl -- delete deployment moomoo-deployment
+```
+### Delete Minikube service
+```bash
+minikube kubectl -- delete service moomoo-service
+```
