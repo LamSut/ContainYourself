@@ -27,9 +27,9 @@ minikube start
 
 ### Set Docker environment
 
-These commands will configure your shell to use the Docker daemon inside the Minikube VM instead of the local Docker instance. This allows you to build and interact with Docker images directly in the Minikube environment for Kubernetes.
+Configuring your Shell to use the Docker Daemon inside the Minikube VM instead of the local Docker instance. This allows you to interact with Docker images directly in the Minikube environment for Kubernetes.
 
-* Unix shells:  
+* Unix Shell:  
 ```bash
 eval $(minikube docker-env)   
 ```
