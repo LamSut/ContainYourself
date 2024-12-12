@@ -1,4 +1,5 @@
-# Local Docker environment
+# Minikube Docker environment
+
 ## Prepare
 ### Clone a Node repository
 ```bash
@@ -6,7 +7,7 @@ git clone https://github.com/LamSut/ContactBook-BE repo
 ```
 ### Copy config files to Node repository
 ```bash
-cp Dockerfile repo
+cp Dockerfile repo && cp node-deployment.yaml repo
 ```
 ### Change the working directory to Node repository
 ```bash
@@ -31,16 +32,24 @@ docker tag node:<tag> <username>/node:<tag>
 docker push <username>/node:<tag>
 ```
 
-## Run & Manage
-### Run container
+## Deploy & Orchestrate
+### Run in Minikube
 ```bash
-docker run -d -p 6969:3000 node:<tag>
+minikube kubectl -- apply -f node-deployment.yaml
 ```
-### List containers
+### Check Minikube pods
 ```bash
-docker ps
+minikube kubectl -- get pods
 ```
-### Stop container
+### Find Minikube service URL
 ```bash
-docker stop <containerid>
+minikube service list
+```
+### Delete Minikube deployment
+```bash
+minikube kubectl -- delete deployment node-deployment
+```
+### Delete Minikube service
+```bash
+minikube kubectl -- delete service node-service
 ```
