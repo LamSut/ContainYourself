@@ -1,7 +1,7 @@
 version: "3.9"
 
 services:
-  # Frontend service
+  # frontend service
   frontend:
     build:
       context: ./frontend
@@ -13,7 +13,7 @@ services:
     networks:
       - app-network
 
-  # Backend service
+  # backend service
   backend:
     build:
       context: ./backend-api
@@ -25,7 +25,7 @@ services:
       - DB_HOST=mysql
       - DB_PORT=3306
       - DB_USER=root
-      - DB_PASSWORD=1
+      - DB_PASS=1
       - DB_NAME=pizza
     depends_on:
       - mysql # wait MySQL ready first

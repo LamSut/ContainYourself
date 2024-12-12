@@ -18,15 +18,11 @@ cp vite.config.js repo/frontend
 ```bash
 cd repo
 ```
-### Build compose
+### Build and start Compose
 ```bash
-docker-compose -f docker-compose.yaml up -d --build
+docker-compose up -d
 ```
-### Stop compose
+### Stop and remove Compose
 ```bash
-docker stop $(docker ps -aq)
-```
-### Remove compose
-```bash
-docker rm $(docker ps -aq)
+docker-compose down
 ```
