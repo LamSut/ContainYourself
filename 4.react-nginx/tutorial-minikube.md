@@ -1,6 +1,3 @@
-# Local Docker environment
-
-## Prepare
 #### Clone a React repository
 ```bash
 git clone https://github.com/melihs/rec-calculator repo
@@ -13,8 +10,6 @@ cp Dockerfile repo
 ```bash
 cd repo
 ```
-
-## Build
 #### Build image
 ```bash
 docker build -t react:<tag> .
@@ -31,8 +26,6 @@ docker tag react:<tag> <username>/react:<tag>
 ```bash
 docker push <username>/react:<tag>  
 ```
-
-## Run & Manage
 #### Run container
 ```bash
 docker run -d -p 6969:80 react:<tag>
