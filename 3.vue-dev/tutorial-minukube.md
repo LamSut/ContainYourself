@@ -1,4 +1,5 @@
-# Local Docker environment
+# Minikube Docker environment
+
 ## Prepare
 #### Clone a Vue repository
 ```bash
@@ -6,12 +7,14 @@ git clone https://github.com/LamSut/ContactBook-FE repo
 ```
 #### Copy Dockerfile to Vue repository
 ```bash
-cp Dockerfile repo
+cp Dockerfile repo && cp vue-dev-deployment.yaml repo
 ```
 #### Change the working directory to Vue repository
 ```bash
 cd repo
 ```
+
+## Build
 #### Build image
 ```bash
 docker build -t vue-dev:<tag> .
@@ -29,16 +32,24 @@ docker tag vue-dev:<tag> <username>/vue-dev:<tag>
 docker push <username>/vue-dev:<tag>  
 ```
 
-## Run & Manage
-#### Run container
+## Deploy & Orchestrate
+#### Run in Minikube
 ```bash
-docker run -d -p 5173:5173 vue-dev:<tag>
+minikube kubectl -- apply -f vue-dev-deployment.yaml
 ```
-#### List containers
+#### Check Minikube pods
 ```bash
-docker ps
+minikube kubectl -- get pods
 ```
-#### Stop container
+#### Find Minikube service URL
 ```bash
-docker stop <containerid>
+minikube service list
+```
+#### Delete Minikube deployment
+```bash
+minikube kubectl -- delete deployment vue-dev-deployment
+```
+#### Delete Minikube service
+```bash
+minikube kubectl -- delete service vue-dev-service
 ```

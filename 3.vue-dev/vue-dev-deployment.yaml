@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vue-dev-deployment
+  labels:
+    app: vue-dev
+spec:
+  replicas: 4 
+  selector:
+    matchLabels:
+      app: vue-dev
+  template:
+    metadata:
+      labels:
+        app: vue-dev
+    spec:
+      containers:
+      - name: vue-dev-container
+        image: vue-dev:v1 
+        ports:
+        - containerPort: 5173
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vue-dev-service
+spec:
+  selector:
+    app: vue-dev
+  ports:
+    - protocol: TCP
+      port: 5173
+      targetPort: 5173
+  type: LoadBalancer
