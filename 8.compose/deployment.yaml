@@ -1,0 +1,196 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: frontend:v1
+          ports:
+            - containerPort: 5173
+          env:
+            - name: NODE_ENV
+              value: "development"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+spec:
+  selector:
+    app: frontend
+  ports:
+    - protocol: TCP
+      port: 5173
+      targetPort: 5173
+  type: LoadBalancer
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: backend:v1
+          ports:
+            - containerPort: 3000
+          env:
+            - name: NODE_ENV
+              value: "development"
+            - name: DB_HOST
+              value: mysql
+            - name: DB_PORT
+              value: "3306"
+            - name: DB_USER
+              value: root
+            - name: DB_PASS
+              value: "1"
+            - name: DB_NAME
+              value: pizza
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+spec:
+  selector:
+    app: backend
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+  type: LoadBalancer
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8.0
+          command:
+            - "mysqld"
+            - "--default-authentication-plugin=mysql_native_password"
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "1"
+            - name: MYSQL_DATABASE
+              value: pizza
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: mysql-data
+            - mountPath: /docker-entrypoint-initdb.d/pizza.sql
+              name: init-sql
+              subPath: pizza.sql
+      volumes:
+        - name: mysql-data
+          persistentVolumeClaim:
+            claimName: mysql-data
+        - name: init-sql
+          configMap:
+            name: init-sql
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+spec:
+  selector:
+    app: mysql
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306
+  type: LoadBalancer
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-data
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: init-sql
+data:
+  pizza.sql: |
+    DROP DATABASE IF EXISTS pizza;
+    CREATE DATABASE pizza;
+    USE pizza;
+    -- GRANT FILE on *.* TO 'root'@'localhost';
+    -- GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost';
+    -- ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '';
+    -- flush privileges;
+
+    -- DROP TABLE product
+    CREATE TABLE product (
+        productid INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(100) NOT NULL,
+        type VARCHAR(20) NOT NULL,
+        description TEXT,
+        price FLOAT NOT NULL,
+        image VARCHAR(255) DEFAULT NULL
+    );
+
+    -- DROP TABLE cart
+    CREATE TABLE cart (
+        cartid INT AUTO_INCREMENT PRIMARY KEY,
+      name VARCHAR(100) NOT NULL,
+        phone VARCHAR(20) NOT NULL,
+        address TEXT NOT NULL,
+        time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+
+    -- DROP TABLE item
+    CREATE TABLE item (
+        cartid INT,
+        productid INT,
+        quantity INT NOT NULL,
+        FOREIGN KEY (cartid) REFERENCES cart(cartid),
+        FOREIGN KEY (productid) REFERENCES product(productid),
+        UNIQUE (cartid, productid)
+    );

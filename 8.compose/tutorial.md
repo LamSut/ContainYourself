@@ -5,15 +5,7 @@
 ```bash
 git clone https://github.com/LamSut/PizzaGout repo
 ```
-#### Copy Docker Compose file to repository
-```bash
-cp docker-compose.yaml repo
-```
-#### Copy SQL file to repository
-```bash
-cp pizza.sql repo
-```
-#### Replace Vite proxy config
+#### Copy Vite config to repository
 ```bash
 cp vite.config.js repo/frontend
 ```
@@ -22,7 +14,7 @@ cp vite.config.js repo/frontend
 cd repo
 ```
 
-## Build
+## Build & Run
 #### Build and start Compose
 ```bash
 docker-compose up -d
