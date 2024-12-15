@@ -35,17 +35,17 @@ minikube service list
 ```bash
 minikube kubectl -- port-forward svc/mysql 3306:3306 &
 ```
-Now you can access this service from: https://localhost:3306/
+Now you can access this service from: http://localhost:3306/
 #### Forward backend port on local machine to port of Minikube service
 ```bash
 minikube kubectl -- port-forward svc/backend 3000:3000 &
 ```
-Now you can access this service from: https://localhost:3000/
+Now you can access this service from: http://localhost:3000/
 #### Forward frontend port on local machine to port of Minikube service
 ```bash
 minikube kubectl -- port-forward svc/frontend 5173:5173 &
 ```
-Now you can access this service from: https://localhost:5173/
+Now you can access this service from: http://localhost:5173/
 #### Delete Minikube deployment
 ```bash
 minikube kubectl -- delete deployment <deployment name>
