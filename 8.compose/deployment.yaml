@@ -7,6 +7,9 @@ metadata:
 data:
   init.sql: |
     DO SLEEP(10);
+    ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY '1';
+    FLUSH PRIVILEGES;
+
     DROP DATABASE IF EXISTS pizza;
     CREATE DATABASE pizza;
     USE pizza;
