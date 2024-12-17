@@ -174,7 +174,8 @@ metadata:
     app: backend
 spec:
   replicas: 2
-  # there might be an error with load balancing since this project uses express-session  selector:
+  # there might be an error with load balancing since this project uses express-session  
+  selector:
     matchLabels:
       app: backend
   strategy:
