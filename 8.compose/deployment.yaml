@@ -25,7 +25,7 @@ data:
 
     CREATE TABLE pizza.cart (
         cartid INT AUTO_INCREMENT PRIMARY KEY,
-      name VARCHAR(100) NOT NULL,
+        name VARCHAR(100) NOT NULL,
         phone VARCHAR(20) NOT NULL,
         address TEXT NOT NULL,
         time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -41,46 +41,46 @@ data:
     );
 ---
 apiVersion: v1
-kind: Service
+kind: PersistentVolume
 metadata:
-  name: mysql
+  name: shared-pv
   labels:
-    app: mysql
+    app: shared-storage
 spec:
-  type: LoadBalancer
-  ports:
-    - port: 3306
-  selector:
-    app: mysql
-    tier: database
+  accessModes:
+    - ReadWriteMany
+  capacity:
+    storage: 20Gi
+  nfs:
+    path: /mnt/shared-storage
+    server: nfs-server.example.com
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mysql-pv-claim
+  name: shared-pvc
   labels:
-    app: mysql
+    app: shared-storage
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 20Gi
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: mysql
   labels:
     app: mysql
 spec:
+  serviceName: mysql
   replicas: 2
   selector:
     matchLabels:
       app: mysql
       tier: database
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:
@@ -99,31 +99,66 @@ spec:
         - containerPort: 3306
           name: mysql
         volumeMounts:
-        - name: mysql-persistent-storage
+        - name: shared-storage
           mountPath: /var/lib/mysql
         - name: init-script
           mountPath: /docker-entrypoint-initdb.d
       volumes:
-      - name: mysql-persistent-storage
-        persistentVolumeClaim:
-          claimName: mysql-pv-claim
       - name: init-script
         configMap:
           name: mysql-init-script
+  volumeClaimTemplates:
+  - metadata:
+      name: shared-storage
+    spec:
+      accessModes: [ "ReadWriteMany" ]
+      resources:
+        requests:
+          storage: 20Gi
 ---
-apiVersion: v1
-kind: Service
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: frontend
+  name: backend
   labels:
-    app: frontend
+    app: backend
 spec:
-  type: LoadBalancer
-  ports:
-    - port: 5173
-      targetPort: 5173
+  replicas: 2
   selector:
-    app: frontend
+    matchLabels:
+      app: backend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - image: backend:v1
+        name: backend
+        ports:
+        - containerPort: 3000
+        env:
+        - name: NODE_ENV
+          value: "development"
+        - name: DB_HOST
+          value: "mysql"
+        - name: DB_PORT
+          value: "3306"
+        - name: DB_USER
+          value: "root"
+        - name: DB_PASS
+          value: "1"
+        - name: DB_NAME
+          value: "pizza"
+        volumeMounts:
+        - name: shared-storage
+          mountPath: /app/data
+      volumes:
+      - name: shared-storage
+        persistentVolumeClaim:
+          claimName: shared-pvc
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -155,6 +190,20 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  name: mysql
+  labels:
+    app: mysql
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 3306
+  selector:
+    app: mysql
+    tier: database
+---
+apiVersion: v1
+kind: Service
+metadata:
   name: backend
   labels:
     app: backend
@@ -166,40 +215,16 @@ spec:
   selector:
     app: backend
 ---
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: Service
 metadata:
-  name: backend
+  name: frontend
   labels:
-    app: backend
+    app: frontend
 spec:
-  replicas: 2
-  # there might be an error with load balancing since this project uses express-session  
+  type: LoadBalancer
+  ports:
+    - port: 5173
+      targetPort: 5173
   selector:
-    matchLabels:
-      app: backend
-  strategy:
-    type: Recreate
-  template:
-    metadata:
-      labels:
-        app: backend
-    spec:
-      containers:
-      - image: backend:v1
-        name: backend
-        ports:
-        - containerPort: 3000
-        env:
-        - name: NODE_ENV
-          value: "development"
-        - name: DB_HOST
-          value: "mysql"
-        - name: DB_PORT
-          value: "3306"
-        - name: DB_USER
-          value: "root"
-        - name: DB_PASS
-          value: "1"
-        - name: DB_NAME
-          value: "pizza"
+    app: frontend
