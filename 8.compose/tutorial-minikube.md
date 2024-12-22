@@ -48,17 +48,21 @@ minikube kubectl -- port-forward svc/frontend 5173:5173 &
 Now you can access this service from: http://localhost:5173/
 #### Delete Minikube deployment
 ```bash
-minikube kubectl -- delete deployment --all
+minikube kubectl -- delete deployment backend && minikube kubectl -- delete deployment frontend
 ```
 #### Delete Minikube StatefulSets
 ```bash
-minikube kubectl -- delete statefulsets --all
+minikube kubectl -- delete statefulsets mysql
 ```
 #### Delete Minikube service
 ```bash
-minikube kubectl -- delete service <service name>
+minikube kubectl -- delete service frontend && minikube kubectl -- delete service backend && minikube kubectl -- delete service mysql
 ```
 #### Delete Minikube PersistentVolumeClaims
 ```bash
-minikube kubectl -- delete pvc --all
+minikube kubectl -- delete pvc shared-pvc shared-storage-mysql-0 shared-storage-mysql-1
+```
+#### Remove Docker images
+```bash
+docker image rm frontend:v1 backend:v1 mysql:8.0
 ```

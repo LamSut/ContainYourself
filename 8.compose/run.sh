@@ -51,7 +51,7 @@ echo "Forwarding FE port..."
 minikube kubectl -- port-forward svc/frontend 5173:5173 &
 
 # finish
-echo "Setup complete! Services are accessible at the following URLs:"
+echo "Setup complete! Services can be accessed via the following URLs:"
 echo "- MySQL: http://localhost:3306"
 echo "- Backend: http://localhost:3000"
 echo "- Frontend: http://localhost:5173"
