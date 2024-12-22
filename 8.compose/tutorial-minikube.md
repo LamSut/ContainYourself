@@ -1,4 +1,4 @@
-# Local Docker environment
+# Minikube Docker environment
 
 ## Prepare
 #### Clone a Vue repository
@@ -13,6 +13,14 @@ cp docker-compose.yaml repo && cp deployment.yaml repo && cp vite.config.js repo
 ```bash
 cd repo
 ```
+#### Set Docker environment to Minikube
+Configuring your Shell to use the Docker Daemon inside the Minikube VM instead of the local Docker instance:  
+
+```bash
+eval $(minikube docker-env)
+```
+
+This allows you to interact with Docker images directly in the Minikube environment for Kubernetes.
 
 ## Deploy & Orchestrate
 #### Build Compose
@@ -46,6 +54,12 @@ Now you can access this service from: http://localhost:3000/
 minikube kubectl -- port-forward svc/frontend 5173:5173 &
 ```
 Now you can access this service from: http://localhost:5173/
+
+## Destroy
+#### Remove Port Forwarding
+```bash
+pkill -f "kubectl port-forward"
+```
 #### Delete Minikube deployment
 ```bash
 minikube kubectl -- delete deployment backend && minikube kubectl -- delete deployment frontend

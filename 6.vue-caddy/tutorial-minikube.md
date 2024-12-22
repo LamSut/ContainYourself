@@ -1,4 +1,4 @@
-# Local Docker environment
+# Minikube Docker environment
 
 ## Prepare
 #### Clone a Vue repository
@@ -13,6 +13,14 @@ cp Dockerfile repo && cp vue-deployment.yaml repo
 ```bash
 cd repo
 ```
+#### Set Docker environment to Minikube
+Configuring your Shell to use the Docker Daemon inside the Minikube VM instead of the local Docker instance:  
+
+```bash
+eval $(minikube docker-env)
+```
+
+This allows you to interact with Docker images directly in the Minikube environment for Kubernetes.
 
 ## Build
 #### Build image
@@ -50,6 +58,8 @@ minikube service list
 minikube kubectl -- port-forward svc/vue-service 6969:443
 ```
 Now you can access this service from: https://localhost:6969/
+
+## Destroy
 #### Delete Minikube deployment
 ```bash
 minikube kubectl -- delete deployment vue-deployment

@@ -1,4 +1,4 @@
-# Local Docker environment
+# Minikube Docker environment
 
 ## Prepare
 #### Clone a Flask repository
@@ -13,6 +13,14 @@ cp Dockerfile repo && cp flask-deployment.yaml repo
 ```bash
 cd repo
 ```
+#### Set Docker environment to Minikube
+Configuring your Shell to use the Docker Daemon inside the Minikube VM instead of the local Docker instance:  
+
+```bash
+eval $(minikube docker-env)
+```
+
+This allows you to interact with Docker images directly in the Minikube environment for Kubernetes.
 
 ## Build
 #### Build image

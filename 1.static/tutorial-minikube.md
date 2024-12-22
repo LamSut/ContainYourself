@@ -1,4 +1,13 @@
 # Minikube Docker daemon
+## Prepare
+#### Set Docker environment to Minikube
+Configuring your Shell to use the Docker Daemon inside the Minikube VM instead of the local Docker instance:  
+
+```bash
+eval $(minikube docker-env)
+```
+
+This allows you to interact with Docker images directly in the Minikube environment for Kubernetes.
 
 ## Build
 #### Build image
@@ -31,6 +40,8 @@ minikube kubectl -- get pods
 ```bash
 minikube service list
 ```
+
+## Destroy
 #### Delete Minikube deployment
 ```bash
 minikube kubectl -- delete deployment moomoo-deployment

@@ -20,23 +20,17 @@ To install Minikube, refer to the official [Minikube Installation Guide](https:/
 
 ## Minikube usage
 
-### Start Minikube
+#### Start Minikube
 ```bash
 minikube start
 ```
-
-### Set Docker environment
-
-Configuring your Shell to use the Docker Daemon inside the Minikube VM instead of the local Docker instance. This allows you to interact with Docker images directly in the Minikube environment for Kubernetes.
-
-* Unix Shell:  
+#### Stop Minikube
 ```bash
-eval $(minikube docker-env)   
+minikube stop
 ```
-
-* PowerShell:  
-```bash          
-minikube docker-env | Invoke-Expression
+#### Delete Minikube
+```bash
+minikube delete
 ```
 
 For more detailed instructions and advanced topics, refer to the full [Minikube Documentation](https://minikube.sigs.k8s.io/docs/).
