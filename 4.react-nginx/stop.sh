@@ -7,15 +7,15 @@ eval $(minikube docker-env)
 pkill -f "kubectl port-forward"
 
 # delete Minikube deployments
-minikube kubectl -- delete deployment node-deployment
+minikube kubectl -- delete deployment react-deployment
 
 # delete Minikube services
-minikube kubectl -- delete service node-service
+minikube kubectl -- delete service react-service
 
 # (WARNING: Those actions below will permanently delete data)
 
 # # remove Docker images
-# docker image rm -f node:v1 
+# docker image rm -f react:v1 
 
 # # remove repository
 # rm -rf repo

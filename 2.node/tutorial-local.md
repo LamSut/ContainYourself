@@ -7,7 +7,7 @@ git clone https://github.com/LamSut/ContactBook-BE repo
 ```
 #### Copy config files to Node repository
 ```bash
-cp Dockerfile repo
+cp ./config/Dockerfile repo
 ```
 #### Change the working directory to Node repository
 ```bash

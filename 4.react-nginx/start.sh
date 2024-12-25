@@ -4,7 +4,7 @@
 eval $(minikube docker-env)
 
 # define variables
-REPO_URL="https://github.com/LamSut/ContactBook-BE"
+REPO_URL="https://github.com/melihs/rec-calculator"
 REPO_DIR="repo"
 CONFIG_FILES="./config/*"
 
@@ -26,11 +26,11 @@ cd $REPO_DIR || { echo "Failed to enter $REPO_DIR"; exit 1; }
 
 # build Docker images
 echo "Building Docker image..."
-docker build -t node:v1 . || { echo "Failed to build Docker image"; exit 1; }
+docker build -t react:v1 . || { echo "Failed to build Docker image"; exit 1; }
 
 # deploy with Minikube
 echo "Applying Kubernetes deployment..."
-minikube kubectl -- apply -f node-deployment.yaml || { echo "Failed to apply Kubernetes deployment"; exit 1; }
+minikube kubectl -- apply -f react-deployment.yaml || { echo "Failed to apply Kubernetes deployment"; exit 1; }
 
 # ensure pods are in running state
 echo "Waiting for all pods to be in Running state..."
@@ -38,7 +38,7 @@ minikube kubectl -- wait --for=condition=ready pod --all --timeout=300s || { ech
 
 # forward ports
 echo "Forwarding port..."
-minikube kubectl -- port-forward svc/node-service 6969:3000 &
+minikube kubectl -- port-forward svc/react-service 6969:80 &
 
 # finish
 echo "Setup complete! Services can be accessed via the following URL:"

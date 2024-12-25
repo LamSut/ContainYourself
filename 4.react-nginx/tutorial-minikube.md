@@ -7,7 +7,7 @@ git clone https://github.com/melihs/rec-calculator repo
 ```
 #### Copy Dockerfile to React repository
 ```bash
-cp Dockerfile repo && cp react-deployment.yaml repo
+cp ./config/* repo
 ```
 #### Change the working directory to React repository
 ```bash

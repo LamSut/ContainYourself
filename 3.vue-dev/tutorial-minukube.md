@@ -7,7 +7,7 @@ git clone https://github.com/LamSut/ContactBook-FE repo
 ```
 #### Copy Dockerfile to Vue repository
 ```bash
-cp Dockerfile repo && cp vue-dev-deployment.yaml repo
+cp ./config/* repo
 ```
 #### Change the working directory to Vue repository
 ```bash

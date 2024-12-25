@@ -20,5 +20,5 @@ echo "Forwarding port..."
 minikube kubectl -- port-forward svc/moomoo-service 6969:80 &
 
 # finish
-echo "Setup complete! Services can be accessed via the following URLs:"
+echo "Setup complete! Services can be accessed via the following URL:"
 echo "http://localhost:6969"

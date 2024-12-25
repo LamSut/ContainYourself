@@ -7,7 +7,7 @@ git clone https://github.com/LamSut/PizzaGout repo
 ```
 #### Copy Vite config to repository
 ```bash
-cp vite.config.js repo/frontend
+cp ./config/vite.config.js repo/frontend
 ```
 #### Change the working directory to repository
 ```bash

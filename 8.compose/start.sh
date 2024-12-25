@@ -6,8 +6,8 @@ eval $(minikube docker-env)
 # define variables
 REPO_URL="https://github.com/LamSut/PizzaGout"
 REPO_DIR="repo"
-CONFIG_FILES=("docker-compose.yaml" "deployment.yaml")
-VITE_CONFIG="vite.config.js"
+CONFIG_FILES=("./config/docker-compose.yaml" "./config/deployment.yaml")
+VITE_CONFIG="./config/vite.config.js"
 
 # clone repository
 if [ -d "$REPO_DIR" ]; then
