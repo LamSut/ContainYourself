@@ -50,3 +50,7 @@ minikube kubectl -- delete deployment moomoo-deployment
 ```bash
 minikube kubectl -- delete service moomoo-service
 ```
+#### Remove Docker image
+```bash
+docker image rm moomoo:v1
+```

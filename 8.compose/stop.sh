@@ -18,12 +18,12 @@ minikube kubectl -- delete service frontend
 minikube kubectl -- delete service backend
 minikube kubectl -- delete service mysql
 
-# (WARNING: Those actions below will permanently delete data.)
+# (WARNING: Those actions below will permanently delete data)
 
 # # delete Minikube PersistentVolumeClaims
 # minikube kubectl -- delete pvc shared-pvc shared-storage-mysql-0 shared-storage-mysql-1
 
 # # remove Docker images
-# docker image rm frontend:v1 backend:v1 mysql:8.0
+# docker image rm -f frontend:v1 backend:v1 mysql:8.0
 
 echo "Minikube resources deleted successfully!"
