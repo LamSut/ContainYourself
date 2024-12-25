@@ -40,6 +40,11 @@ minikube kubectl -- get pods
 ```bash
 minikube service list
 ```
+#### Forward port on local machine to port of Minikube service
+```bash
+minikube kubectl -- port-forward svc/node-service 6969:80 &
+```
+Now you can access this service from: http://localhost:6969/ 
 
 ## Destroy
 #### Delete Minikube deployment

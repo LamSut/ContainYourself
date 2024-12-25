@@ -21,4 +21,4 @@ minikube kubectl -- port-forward svc/moomoo-service 6969:80 &
 
 # finish
 echo "Setup complete! Services can be accessed via the following URLs:"
-echo "- MySQL: http://localhost:6969"
+echo "http://localhost:6969"
