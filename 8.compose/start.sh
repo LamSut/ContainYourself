@@ -28,8 +28,8 @@ cp $VITE_CONFIG $REPO_DIR/frontend || { echo "Failed to copy $VITE_CONFIG"; exit
 echo "Changing to repository directory..."
 cd $REPO_DIR || { echo "Failed to enter $REPO_DIR"; exit 1; }
 
-# build Docker containers
-echo "Building Docker Containers..."
+# build Docker images
+echo "Building Docker images..."
 docker-compose build || { echo "Failed to build with Docker Compose"; exit 1; }
 
 # deploy with Minikube

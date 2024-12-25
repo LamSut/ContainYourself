@@ -1,13 +1,15 @@
 # Usage
 
-Build & Deploy: 
+How to build Docker images and deploy them in a Minikube environment with Bash Script:
+
+* Build & Deploy: 
 ```bash
-chmod 755 run.sh && ./run.sh
+chmod 755 start.sh && ./start.sh
 ```
 
-Stop & Remove:
+* Stop & Remove:
 ```bash
 chmod 755 stop.sh && ./stop.sh
 ```
 
-For more details, refer to the tutorials on [Local Docker Daemon](https://github.com/LamSut/Play-with-Containers/blob/main/8.compose/tutorial.md) or [Minikube Docker Daemon](https://github.com/LamSut/Play-with-Containers/blob/main/8.compose/tutorial-minikube.md).
+For more details, refer to the tutorials on [Local Docker Daemon](https://github.com/LamSut/Play-with-Containers/blob/main/8.compose/tutorial-local.md) or [Minikube Docker Daemon](https://github.com/LamSut/Play-with-Containers/blob/main/8.compose/tutorial-minikube.md).
