@@ -26,7 +26,7 @@ minikube kubectl -- delete service mysql
 # # remove Docker images
 # docker image rm -f frontend:v1 backend:v1 mysql:8.0
 
-# # remove repository
-# rm -rf repo
+# remove repository
+rm -rf repo
 
 echo "Minikube resources deleted successfully!"

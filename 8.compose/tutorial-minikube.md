@@ -7,7 +7,7 @@ git clone https://github.com/LamSut/PizzaGout repo
 ```
 #### Copy config files to repository
 ```bash
-cp ./config/docker-compose.yaml repo && cp ./config/deployment.yaml repo && cp ./config/vite.config.js repo/frontend
+cp ./config/docker-compose.yaml repo && cp ./config/deployment.yaml repo
 ```
 #### Change the working directory to repository
 ```bash

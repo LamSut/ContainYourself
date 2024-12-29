@@ -7,7 +7,6 @@ eval $(minikube docker-env)
 REPO_URL="https://github.com/LamSut/PizzaGout"
 REPO_DIR="repo"
 CONFIG_FILES=("./config/docker-compose.yaml" "./config/deployment.yaml")
-VITE_CONFIG="./config/vite.config.js"
 
 # clone repository
 if [ -d "$REPO_DIR" ]; then
@@ -22,7 +21,6 @@ echo "Copying configuration files..."
 for file in "${CONFIG_FILES[@]}"; do
   cp $file $REPO_DIR || { echo "Failed to copy $file"; exit 1; }
 done
-cp $VITE_CONFIG $REPO_DIR/frontend || { echo "Failed to copy $VITE_CONFIG"; exit 1; }
 
 # change to repository directory
 echo "Changing to repository directory..."

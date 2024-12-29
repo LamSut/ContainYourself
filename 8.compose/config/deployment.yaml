@@ -186,6 +186,8 @@ spec:
         env:
         - name: NODE_ENV
           value: "development"
+        - name: VITE_TARGET
+          value: "http://backend:3000/"
 ---
 apiVersion: v1
 kind: Service
