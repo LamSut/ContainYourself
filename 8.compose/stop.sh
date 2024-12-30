@@ -12,11 +12,13 @@ minikube kubectl -- delete deployment frontend
 
 # delete Minikube StatefulSets
 minikube kubectl -- delete statefulsets mysql
+minikube kubectl -- delete statefulsets redis
 
 # delete Minikube services
 minikube kubectl -- delete service frontend
 minikube kubectl -- delete service backend
 minikube kubectl -- delete service mysql
+minikube kubectl -- delete service redis
 
 # (WARNING: Those actions below will permanently delete data)
 

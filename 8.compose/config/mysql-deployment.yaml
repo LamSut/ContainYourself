@@ -17,7 +17,7 @@ data:
     CREATE TABLE pizza.product (
         productid INT AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(100) NOT NULL,
-        type VARCHAR(20) NOT NULL,
+        type VARCHAR(15) NOT NULL,
         description TEXT,
         price FLOAT NOT NULL,
         image VARCHAR(255) DEFAULT NULL
@@ -26,7 +26,7 @@ data:
     CREATE TABLE pizza.cart (
         cartid INT AUTO_INCREMENT PRIMARY KEY,
         name VARCHAR(100) NOT NULL,
-        phone VARCHAR(20) NOT NULL,
+        phone VARCHAR(15) NOT NULL,
         address TEXT NOT NULL,
         time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
@@ -50,7 +50,7 @@ spec:
   accessModes:
     - ReadWriteMany
   capacity:
-    storage: 20Gi
+    storage: 15Gi
   nfs:
     path: /mnt/shared-storage
     server: nfs-server.example.com
@@ -66,7 +66,7 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: 20Gi
+      storage: 15Gi
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -114,80 +114,7 @@ spec:
       accessModes: [ "ReadWriteMany" ]
       resources:
         requests:
-          storage: 20Gi
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: backend
-  labels:
-    app: backend
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: backend
-  strategy:
-    type: Recreate
-  template:
-    metadata:
-      labels:
-        app: backend
-    spec:
-      containers:
-      - image: backend:v1
-        name: backend
-        ports:
-        - containerPort: 3000
-        env:
-        - name: NODE_ENV
-          value: "development"
-        - name: DB_HOST
-          value: "mysql"
-        - name: DB_PORT
-          value: "3306"
-        - name: DB_USER
-          value: "root"
-        - name: DB_PASS
-          value: "1"
-        - name: DB_NAME
-          value: "pizza"
-        volumeMounts:
-        - name: shared-storage
-          mountPath: /app/data
-      volumes:
-      - name: shared-storage
-        persistentVolumeClaim:
-          claimName: shared-pvc
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: frontend
-  labels:
-    app: frontend
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: frontend
-  strategy:
-    type: Recreate
-  template:
-    metadata:
-      labels:
-        app: frontend
-    spec:
-      containers:
-      - image: frontend:v1
-        name: frontend
-        ports:
-        - containerPort: 5173
-        env:
-        - name: NODE_ENV
-          value: "development"
-        - name: VITE_TARGET
-          value: "http://backend:3000/"
+          storage: 15Gi
 ---
 apiVersion: v1
 kind: Service
@@ -202,31 +129,3 @@ spec:
   selector:
     app: mysql
     tier: database
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: backend
-  labels:
-    app: backend
-spec:
-  type: LoadBalancer
-  ports:
-    - port: 3000
-      targetPort: 3000
-  selector:
-    app: backend
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: frontend
-  labels:
-    app: frontend
-spec:
-  type: LoadBalancer
-  ports:
-    - port: 5173
-      targetPort: 5173
-  selector:
-    app: frontend
