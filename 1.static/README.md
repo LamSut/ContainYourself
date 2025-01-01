@@ -1,6 +1,6 @@
 # Usage
 
-How to build Docker images and deploy them in a Minikube environment with Bash Script:
+How to build Docker images and deploy them in a Minikube environment with Bash scripts:
 
 * Build & Deploy: 
 ```bash
