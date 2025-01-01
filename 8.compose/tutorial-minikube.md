@@ -7,7 +7,7 @@ git clone https://github.com/LamSut/PizzaGout repo
 ```
 #### Copy config files to repository
 ```bash
-cp ./config/docker-compose.yaml repo && cp ./config/deployment.yaml repo
+cp ./config/* repo
 ```
 #### Change the working directory to repository
 ```bash
@@ -44,6 +44,11 @@ minikube service list
 minikube kubectl -- port-forward svc/mysql 3306:3306 &
 ```
 Now you can access this service from: http://localhost:3306/
+#### Forward Redis port on local machine to port of Minikube service
+```bash
+minikube kubectl -- port-forward svc/redis 6379:6379 &
+```
+Now you can access this service from: http://localhost:6379/
 #### Forward backend port on local machine to port of Minikube service
 ```bash
 minikube kubectl -- port-forward svc/backend 3000:3000 &
@@ -62,7 +67,7 @@ pkill -f "kubectl port-forward"
 ```
 #### Delete Minikube deployment
 ```bash
-minikube kubectl -- delete deployment backend && minikube kubectl -- delete deployment frontend
+minikube kubectl -- delete deployment frontend && minikube kubectl -- delete deployment backend && minikube kubectl -- delete deployment redis
 ```
 #### Delete Minikube StatefulSets
 ```bash
@@ -70,13 +75,13 @@ minikube kubectl -- delete statefulsets mysql
 ```
 #### Delete Minikube service
 ```bash
-minikube kubectl -- delete service frontend && minikube kubectl -- delete service backend && minikube kubectl -- delete service mysql
+minikube kubectl -- delete service frontend && minikube kubectl -- delete service backend && minikube kubectl -- delete service redis && minikube kubectl -- delete service mysql
 ```
 #### Delete Minikube PersistentVolumeClaims
 ```bash
-minikube kubectl -- delete pvc shared-pvc shared-storage-mysql-0 shared-storage-mysql-1
+minikube kubectl -- delete pvc shared-pvc shared-storage-mysql-0 shared-storage-mysql-1 redis-pvc
 ```
 #### Remove Docker images
 ```bash
-docker image rm frontend:v1 backend:v1 mysql:8.0
+docker image rm frontend:v1 backend:v1 redis:7.0 mysql:8.0
 ```

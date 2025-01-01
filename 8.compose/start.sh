@@ -3,6 +3,7 @@
 # change Docker daemon to Minikube
 eval $(minikube docker-env)
 
+# can be simplier, just for practice to write scripts
 # define variables
 REPO_URL="https://github.com/LamSut/PizzaGout"
 REPO_DIR="repo"
