@@ -7,18 +7,20 @@ eval $(minikube docker-env)
 pkill -f "kubectl port-forward"
 
 # delete Minikube deployments
-minikube kubectl -- delete deployment backend
 minikube kubectl -- delete deployment frontend
+minikube kubectl -- delete deployment backend
+minikube kubectl -- delete deployment redis
 
 # delete Minikube StatefulSets
-minikube kubectl -- delete statefulsets mysql
 minikube kubectl -- delete statefulsets redis
+minikube kubectl -- delete statefulsets mysql
+=
 
 # delete Minikube services
 minikube kubectl -- delete service frontend
 minikube kubectl -- delete service backend
-minikube kubectl -- delete service mysql
 minikube kubectl -- delete service redis
+minikube kubectl -- delete service mysql
 
 # (WARNING: Those actions below will permanently delete data)
 

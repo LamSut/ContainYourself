@@ -32,7 +32,7 @@ docker-compose build || { echo "Failed to build with Docker Compose"; exit 1; }
 
 # deploy with Minikube
 echo "Applying Kubernetes deployment..."
-# minikube kubectl -- apply -f redis-deployment.yaml || { echo "Failed to apply Redis deployment"; exit 1; }
+minikube kubectl -- apply -f redis-deployment.yaml || { echo "Failed to apply Redis deployment"; exit 1; }
 minikube kubectl -- apply -f mysql-deployment.yaml || { echo "Failed to apply MySQL deployment"; exit 1; }
 minikube kubectl -- apply -f backend-deployment.yaml || { echo "Failed to apply Backend deployment"; exit 1; }
 minikube kubectl -- apply -f frontend-deployment.yaml || { echo "Failed to apply Frontend deployment"; exit 1; }
@@ -47,7 +47,7 @@ echo "Forwarding MySQL port..."
 minikube kubectl -- port-forward svc/mysql 3306:3306 &
 
 # # echo "Forwarding Redis port..."
-# minikube kubectl -- port-forward svc/redis 6379:6379 &
+minikube kubectl -- port-forward svc/redis 6379:6379 &
 
 echo "Forwarding BE port..."
 minikube kubectl -- port-forward svc/backend 3000:3000 &
