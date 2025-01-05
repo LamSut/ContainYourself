@@ -1,5 +1,9 @@
 # Minikube Docker daemon
 ## Prepare
+#### Change the working directory to MySQL repository
+```bash
+cd config
+```
 #### Set Docker environment to Minikube
 Configuring your Shell to use the Docker Daemon inside the Minikube VM instead of the local Docker instance:  
 
