@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# change the working directory 
-cd config
-
 # change Docker daemon to Minikube
 eval $(minikube docker-env)
 

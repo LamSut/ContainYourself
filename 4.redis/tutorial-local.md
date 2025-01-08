@@ -1,4 +1,9 @@
 # Local Docker daemon
+## Prepare
+#### Change the working directory to MySQL repository
+```bash
+cd config
+```
 
 ## Build
 #### Build image
