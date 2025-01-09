@@ -1,6 +1,6 @@
 # Local Docker daemon
 ## Prepare
-#### Change the working directory to MySQL repository
+#### Change the working directory to Redis repository
 ```bash
 cd config
 ```

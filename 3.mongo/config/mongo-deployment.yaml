@@ -1,0 +1,107 @@
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#   name: mysql-init
+#   labels:
+#     app: mysql
+# data:
+#   init.sql: |
+#     CREATE TABLE IF NOT EXISTS users (
+#         id INT AUTO_INCREMENT PRIMARY KEY,
+#         name VARCHAR(255) NOT NULL
+#     );
+#     INSERT INTO users (name) VALUES ('Lam Sut ngon zai vai ca loz');
+# ---
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+#   name: shared-pv
+#   labels:
+#     app: shared-storage
+# spec:
+#   accessModes:
+#     - ReadWriteMany
+#   capacity:
+#     storage: 15Gi
+#   nfs:
+#     path: /mnt/shared-storage
+#     server: nfs-server.example.com
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: shared-pvc
+#   labels:
+#     app: shared-storage
+# spec:
+#   accessModes:
+#     - ReadWriteMany
+#   resources:
+#     requests:
+#       storage: 15Gi
+# ---
+# apiVersion: apps/v1
+# kind: StatefulSet
+# metadata:
+#   name: mysql
+#   labels:
+#     app: mysql
+# spec:
+#   serviceName: mysql
+#   replicas: 2
+#   selector:
+#     matchLabels:
+#       app: mysql
+#       tier: database
+#   template:
+#     metadata:
+#       labels:
+#         app: mysql
+#         tier: database
+#     spec:
+#       containers:
+#       - image: mysql:8.0
+#         name: mysql
+#         env:
+#         - name: MYSQL_ROOT_PASSWORD
+#           value: "1"
+#         - name: MYSQL_DATABASE
+#           value: "lamsut"
+#         - name: MYSQL_USER
+#           value: "lamsut123"
+#         - name: MYSQL_PASSWORD
+#           value: "lamsut123"
+#         ports:
+#         - containerPort: 3306
+#           name: mysql
+#         volumeMounts:
+#         - name: shared-storage
+#           mountPath: /var/lib/mysql
+#         - name: init-script
+#           mountPath: /docker-entrypoint-initdb.d
+#       volumes:
+#       - name: init-script
+#         configMap:
+#           name: mysql-init
+#   volumeClaimTemplates:
+#   - metadata:
+#       name: shared-storage
+#     spec:
+#       accessModes: [ "ReadWriteMany" ]
+#       resources:
+#         requests:
+#           storage: 15Gi
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: mysql-service
+#   labels:
+#     app: mysql
+# spec:
+#   type: LoadBalancer
+#   ports:
+#     - port: 3306
+#   selector:
+#     app: mysql
+#     tier: database

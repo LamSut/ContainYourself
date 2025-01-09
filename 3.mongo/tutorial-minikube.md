@@ -1,6 +1,6 @@
 # Minikube Docker daemon
 ## Prepare
-#### Change the working directory to Redis repository
+#### Change the working directory to MongoDB repository
 ```bash
 cd config
 ```
@@ -16,7 +16,7 @@ This allows you to interact with Docker images directly in the Minikube environm
 ## Build
 #### Build image
 ```bash
-docker build -t redis:7.0 .
+docker build -t mongo:v1 .
 ```
 #### List images
 ```bash
@@ -24,17 +24,17 @@ docker images
 ```
 #### Tag image
 ```bash
-docker tag redis:7.0 <username>/redis  
+docker tag mongo:v1 <username>/mongo  
 ```
 #### Push image to Docker Hub
 ```bash
-docker push <username>/redis:7.0  
+docker push <username>/mongo:v1  
 ```
 
 ## Deploy & Orchestrate
 #### Run in Minikube
 ```bash
-minikube kubectl -- apply -f redis-deployment.yaml
+minikube kubectl -- apply -f mongo-deployment.yaml
 ```
 #### Check Minikube pods
 ```bash
@@ -46,20 +46,20 @@ minikube service list
 ```
 #### Forward port on local machine to port of Minikube service
 ```bash
-minikube kubectl -- port-forward svc/node-service 6379:6379 &
+minikube kubectl -- port-forward svc/node-service 27017:27017 &
 ```
-Now you can access this service from: http://localhost:6379/ 
+Now you can access this service from: http://localhost:27017/ 
 
 ## Destroy
 #### Delete Minikube deployment
 ```bash
-minikube kubectl -- delete deployment redis-deployment
+minikube kubectl -- delete deployment mongo-deployment
 ```
 #### Delete Minikube service
 ```bash
-minikube kubectl -- delete service redis-service
+minikube kubectl -- delete service mongo-service
 ```
 #### Remove Docker image
 ```bash
-docker image rm redis:7.0
+docker image rm mongo:v1
 ```
