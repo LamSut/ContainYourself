@@ -8,13 +8,6 @@ const database = process.env.MONGO_DB;
 
 db = db.getSiblingDB('admin');
 
-// just for ensure
-db.createUser({
-  user: rootUser,
-  pwd: rootPassword,
-  roles: ["root"]
-});
-
 // switch to the zoo
 db = db.getSiblingDB(database);
 

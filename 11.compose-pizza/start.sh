@@ -47,7 +47,7 @@ minikube kubectl -- wait --for=condition=ready pod --all --timeout=300s || { ech
 echo "Forwarding MySQL port..."
 minikube kubectl -- port-forward svc/mysql 3306:3306 &
 
-# # echo "Forwarding Redis port..."
+echo "Forwarding Redis port..."
 minikube kubectl -- port-forward svc/redis 6379:6379 &
 
 echo "Forwarding BE port..."

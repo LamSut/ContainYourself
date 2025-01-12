@@ -13,25 +13,11 @@ eval $(minikube docker-env)
 
 This allows you to interact with Docker images directly in the Minikube environment for Kubernetes.
 
-## Build
-#### Build image
-```bash
-docker build -t mongo:v1 .
-```
-#### List images
-```bash
-docker images
-```
-#### Tag image
-```bash
-docker tag mongo:v1 <username>/mongo  
-```
-#### Push image to Docker Hub
-```bash
-docker push <username>/mongo:v1  
-```
-
 ## Deploy & Orchestrate
+#### Build Compose
+```bash
+docker-compose build
+```
 #### Run in Minikube
 ```bash
 minikube kubectl -- apply -f mongo-deployment.yaml

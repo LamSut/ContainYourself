@@ -1,16 +1,22 @@
 #!/bin/bash
 
+# change the working directory 
+cd config
+
 # change Docker daemon to Minikube
 eval $(minikube docker-env)
 
 # remove port forwarding
 pkill -f "kubectl port-forward"
 
+# delete Minikube deployments
+minikube kubectl -- delete deployment mongo
+
 # delete Minikube StatefulSets
-minikube kubectl -- delete statefulsets mysql
+minikube kubectl -- delete statefulsets mongo
 
 # delete Minikube services
-minikube kubectl -- delete service mysql-service
+minikube kubectl -- delete service mongo
 
 # (WARNING: Those actions below will permanently delete data)
 
@@ -18,6 +24,6 @@ minikube kubectl -- delete service mysql-service
 # minikube kubectl -- delete pvc shared-pvc shared-storage-mysql-0 shared-storage-mysql-1
 
 # # remove Docker images
-# docker image rm -f mysql:8.0
+# docker image rm -f mongo:6.0
 
 echo "Minikube resources deleted successfully!"
