@@ -20,7 +20,7 @@ minikube kubectl -- wait --for=condition=ready pod --all --timeout=300s || { ech
 
 # forward port
 echo "Forwarding MongoDB port..."
-minikube kubectl -- port-forward svc/mysql 27017:27017 &
+minikube kubectl -- port-forward svc/mongo 27017:27017 &
 
 # finish
 echo "Setup complete! Services can be accessed via the following URLs:"
