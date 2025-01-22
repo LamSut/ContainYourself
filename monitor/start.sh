@@ -2,7 +2,6 @@
 
 # set up Prometheus and Grafana for Minikube
 # prerequisite: Helm installed
-
 echo "Starting Prometheus and Grafana Setup..."
 
 # change Docker daemon to Minikube
