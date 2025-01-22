@@ -2,7 +2,7 @@
 Here are some practice exercises that I have created to help you learn about containers:
 * These practice exercises are designed to guide you through building, running, and managing your containers locally with Docker.
 * You can further enhance your skills in deploying and orchestrating containerized applications on a Kubernetes cluster with Minikube.
-* You will also acquire practical experience about monitoring and visualization of containerized apps using Grafana and Prometheus.
+* You will also acquire practical experience about monitoring and visualization with Grafana and Prometheus.
 
 # Docker
 
