@@ -9,6 +9,7 @@ cd repo || { echo "Failed to enter repo directory"; exit 1; }
 
 # Build and start Docker Compose
 echo "Building and starting Docker containers..."
+docker-compose build
 docker-compose up -d
 
 # Uncomment below lines if you want to stop and remove containers automatically
