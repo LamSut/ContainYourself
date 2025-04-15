@@ -1,11 +1,11 @@
 #!/bin/bash
 
-REPO_PATH="/home/{{ ansible_user }}/containers/4.compose/pizza/repo"
+REPO_DIR="$HOME/containers/4.compose/pizza/repo"
 
 echo "Cloning the PizzaGout repository..."
-git clone https://github.com/LamSut/PizzaGout.git "$REPO_PATH"
+git clone https://github.com/LamSut/PizzaGout.git "$REPO_DIR"
 
-cd "$REPO_PATH" || { echo "Failed to enter repo directory"; exit 1; }
+cd "$REPO_DIR" || { echo "Failed to enter repo directory"; exit 1; }
 
 echo "Building and starting Docker containers..."
 docker-compose build
