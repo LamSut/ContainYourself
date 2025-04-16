@@ -16,6 +16,7 @@ echo "Public IP: $PUBLIC_IP"
 sed -i "s/SWAGGER_HOST=.*/SWAGGER_HOST=$PUBLIC_IP/" "$COMPOSE_FILE"
 
 echo "Building and starting Docker containers..."
+docker-compose down
 docker-compose build
 docker-compose up -d
 
