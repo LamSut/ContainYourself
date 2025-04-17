@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  php:
+    build: .
+    container_name: apache_php
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - mysql
+    networks:
+      - app-network
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    command: mysqld --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ''
+      MYSQL_DATABASE: 'hack'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./Hack.sql:/docker-entrypoint-initdb.d/Hack.sql:ro
+    networks:
+      - app-network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "8081:80"
+    depends_on:
+      - mysql
+    networks:
+      - app-network
+
+volumes:
+  db_data:
+
+
+networks:
+  app-network:
