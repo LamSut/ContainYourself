@@ -1,14 +1,22 @@
 #!/bin/bash
 
 REPO_DIR="$HOME/containers/4.compose/hack/repo"
+REPO_URL="https://github.com/LamSut/THS2024-77.git"
 
-echo "Cloning the Ethical Hacking Trainning Ground repository..."
-git clone https://github.com/LamSut/THS2024-77.git "$REPO_DIR"
+echo "Preparing Ethical Hacking Training Ground repository..."
 
-cd "$REPO_DIR" || { echo "Failed to enter repo directory"; exit 1; }
+if [ -d "$REPO_DIR/.git" ]; then
+  echo "Repository already exists. Pulling latest changes..."
+  cd "$REPO_DIR" || { echo "Failed to enter repo directory"; exit 1; }
+  git pull
+else
+  echo "Cloning the repository..."
+  git clone "$REPO_URL" "$REPO_DIR"
+  cd "$REPO_DIR" || { echo "Failed to enter repo directory"; exit 1; }
+fi
 
 echo "Copying config files into repo..."
-cp ../config/.* ../config/* "$REPO_DIR"
+cp -r ../config/. "$REPO_DIR"
 
 echo "Building and starting Docker containers..."
 docker-compose down
