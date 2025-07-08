@@ -1,16 +1,47 @@
 version: '3.8'
 
 services:
-  php:
-    build: .
-    container_name: apache_php
+  proxy:
+    build:
+      context: .
+      dockerfile: Dockerfile.httpd
+    container_name: apache_proxy
     ports:
       - "80:80"
-      - "443:443"
-    depends_on:
-      - mysql
+    volumes:
+      - ./php_active.conf:/usr/local/apache2/conf/extra/httpd-proxy.conf
     networks:
       - app-network
+    command: >
+      sh -c "echo 'Include conf/extra/httpd-proxy.conf' >> conf/httpd.conf && httpd-foreground"
+
+  php_blue:
+    build:
+      context: .
+      dockerfile: Dockerfile.php
+    container_name: php_blue
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
+  php_green:
+    build:
+      context: .
+      dockerfile: Dockerfile.php
+    container_name: php_green
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
 
   mysql:
     image: mysql:8.0
@@ -28,6 +59,12 @@ services:
       - ./Hack.sql:/docker-entrypoint-initdb.d/Hack.sql:ro
     networks:
       - app-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -44,7 +81,6 @@ services:
 
 volumes:
   db_data:
-
 
 networks:
   app-network:

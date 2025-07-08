@@ -1,0 +1,5 @@
+FROM httpd:2.4
+
+RUN apt-get update && apt-get install -y curl \
+  && sed -i '/^#LoadModule proxy_module/s/^#//' /usr/local/apache2/conf/httpd.conf \
+  && sed -i '/^#LoadModule proxy_http_module/s/^#//' /usr/local/apache2/conf/httpd.conf
