@@ -9,7 +9,7 @@ COMPOSE_FILE="$REPO_DIR/docker-compose.yaml"
 
 echo "Preparing PizzaGout repository..."
 
-if [ -d "$REPO_DIR/.git" ]; then
+if [ -d "$REPO_DIR" ]; then
   echo "Repository already exists. Pulling latest changes..."
   cd "$REPO_DIR" || { echo "Failed to enter repo directory"; exit 1; }
   git pull
