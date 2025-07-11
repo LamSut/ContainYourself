@@ -4,12 +4,12 @@ LOG_FILE="./hack.log"
 exec > >(tee -a "$LOG_FILE") 2>&1
 
 REPO_DIR="$HOME/containers/4.compose/hack/repo"
-REPO_URL="https://github.com/LamSut/THS2024-77.git"
+REPO_URL="https://github.com/LamSut/W0rm.git"
 ACTIVE_COLOR_FILE="./active_color.txt"
 
 echo "Preparing Ethical Hacking Training Ground repository..."
 
-if [ -d "$REPO_DIR/.git" ]; then
+if [ -d "$REPO_DIR" ]; then
   echo "Repository already exists. Pulling latest changes..."
   cd "$REPO_DIR" || { echo "Failed to enter repo directory"; exit 1; }
   git pull
