@@ -1,5 +1,8 @@
 #!/bin/bash
 
+LOG_FILE="./hack.log"
+exec > >(tee -a "$LOG_FILE") 2>&1
+
 REPO_DIR="$HOME/containers/4.compose/hack/repo"
 REPO_URL="https://github.com/LamSut/THS2024-77.git"
 ACTIVE_COLOR_FILE="./active_color.txt"
@@ -103,6 +106,3 @@ docker images repo_php_$ACTIVE_COLOR -q | xargs -r docker rmi -f || echo "Image 
 echo "$INACTIVE_COLOR" > "$ACTIVE_COLOR_FILE"
 
 echo "Deployment switched to $INACTIVE_COLOR successfully."
-
-echo "Showing logs..."
-docker-compose logs --tail=50 --no-color
