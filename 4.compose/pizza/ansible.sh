@@ -1,7 +1,7 @@
 #!/bin/bash
 
 LOG_FILE="./pizza.log"
-exec > >(tee -a "$LOG_FILE") 2>&1
+exec > >(tee "$LOG_FILE") 2>&1
 
 REPO_DIR="$HOME/containers/4.compose/pizza/repo"
 REPO_URL="https://github.com/LamSut/PizzaGout.git"
