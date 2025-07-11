@@ -103,3 +103,6 @@ docker images repo_php_$ACTIVE_COLOR -q | xargs -r docker rmi -f || echo "Image 
 echo "$INACTIVE_COLOR" > "$ACTIVE_COLOR_FILE"
 
 echo "Deployment switched to $INACTIVE_COLOR successfully."
+
+echo "Showing logs..."
+docker-compose logs --tail=50 --no-color
