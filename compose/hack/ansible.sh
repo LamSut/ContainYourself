@@ -65,7 +65,9 @@ if [ ! -f "$ACTIVE_COLOR_FILE" ]; then
   }
 
   wait_for_healthy php_blue
+  wait_for_healthy apache_proxy
   wait_for_healthy mysql
+  wait_for_healthy phpadmin
 
   echo "Initial setup complete. Active version: php_blue"  
   exit 0
