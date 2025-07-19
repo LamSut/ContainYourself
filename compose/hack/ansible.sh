@@ -30,6 +30,10 @@ if [ ! -f "$ACTIVE_COLOR_FILE" ]; then
     -subj "/C=VN/ST=CT/L=NK/O=CTU/OU=CICT/CN=localhost" \
     -addext "basicConstraints=CA:FALSE"
 
+  echo "Getting the Public IP of the current EC2 instance"
+  PUBLIC_IP=$(curl -s https://api.ipify.org)
+  sed -i "s/localhost/$PUBLIC_IP/g" ./php_blue.conf ./php_green.conf
+
   echo "Building and starting services..."
   echo "blue" > "$ACTIVE_COLOR_FILE"
 
