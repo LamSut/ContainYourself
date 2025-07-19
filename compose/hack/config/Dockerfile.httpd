@@ -2,4 +2,8 @@ FROM httpd:2.4
 
 RUN apt-get update && apt-get install -y curl \
   && sed -i '/^#LoadModule proxy_module/s/^#//' /usr/local/apache2/conf/httpd.conf \
-  && sed -i '/^#LoadModule proxy_http_module/s/^#//' /usr/local/apache2/conf/httpd.conf
+  && sed -i '/^#LoadModule proxy_http_module/s/^#//' /usr/local/apache2/conf/httpd.conf \
+  && sed -i '/^#LoadModule headers_module/s/^#//' /usr/local/apache2/conf/httpd.conf \
+  && sed -i '/^#LoadModule ssl_module/s/^#//' /usr/local/apache2/conf/httpd.conf \
+  && sed -i '/^#LoadModule socache_shmcb_module/s/^#//' /usr/local/apache2/conf/httpd.conf \
+  && sed -i 's|#Include conf/extra/httpd-ssl.conf|Include conf/extra/httpd-ssl.conf|' /usr/local/apache2/conf/httpd.conf

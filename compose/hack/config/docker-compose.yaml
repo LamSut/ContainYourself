@@ -8,8 +8,11 @@ services:
     container_name: apache_proxy
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - ./php_active.conf:/usr/local/apache2/conf/extra/httpd-proxy.conf
+      - ./ssl/server.crt:/usr/local/apache2/conf/server.crt
+      - ./ssl/server.key:/usr/local/apache2/conf/server.key
     networks:
       - app-network
     command: >
@@ -63,7 +66,7 @@ services:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
       timeout: 5s
-      retries: 5
+      retries: 9
       start_period: 5s
 
   phpmyadmin:

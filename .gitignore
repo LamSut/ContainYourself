@@ -1,1 +1,4 @@
 repo
+*.crt
+*.key
+*.log

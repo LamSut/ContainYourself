@@ -19,11 +19,17 @@ else
   cd "$REPO_DIR" || { echo "Failed to enter repo directory"; exit 1; }
 fi
 
-echo "Copying config files into repo..."
-cp -r ../config/. "$REPO_DIR"
-
 # Deployment for the first time
 if [ ! -f "$ACTIVE_COLOR_FILE" ]; then
+  echo "Copying config files into repo..."
+  cp -r ../config/. "$REPO_DIR"
+  
+  echo "Generating SSL certificates..."
+  openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+    -keyout ./ssl/server.key -out ./ssl/server.crt \
+    -subj "/C=VN/ST=CT/L=NK/O=CTU/OU=CICT/CN=localhost" \
+    -addext "basicConstraints=CA:FALSE"
+
   echo "Building and starting services..."
   echo "blue" > "$ACTIVE_COLOR_FILE"
 
@@ -38,13 +44,13 @@ if [ ! -f "$ACTIVE_COLOR_FILE" ]; then
 
   wait_for_healthy() {
     local container=$1
-    for i in {1..10}; do
+    for i in {1..20}; do
       STATUS=$(docker inspect --format='{{.State.Health.Status}}' "$container" 2>/dev/null)
       if [ "$STATUS" == "healthy" ]; then
         echo "$container is healthy."
         return
       fi
-      echo "Waiting for $container to become healthy... ($i/10)"
+      echo "Waiting for $container to become healthy... ($i/20)"
       sleep 2
     done
 
@@ -73,13 +79,13 @@ echo "Built new version: php_$INACTIVE_COLOR"
 docker-compose up -d php_$INACTIVE_COLOR
 echo "Waiting for php_$INACTIVE_COLOR to become healthy..."
 
-for i in {1..10}; do
+for i in {1..20}; do
   STATUS=$(docker inspect --format='{{.State.Health.Status}}' php_$INACTIVE_COLOR 2>/dev/null)
   if [ "$STATUS" == "healthy" ]; then
     echo "php_$INACTIVE_COLOR is healthy."
     break
   fi
-  echo "Waiting... ($i/10)"
+  echo "Waiting... ($i/20)"
   sleep 2
 done
 
