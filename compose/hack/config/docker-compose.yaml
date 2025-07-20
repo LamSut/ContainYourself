@@ -70,9 +70,9 @@ services:
       - app-network
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1"]
-      interval: 10s
+      interval: 5s
       timeout: 5s
-      retries: 3
+      retries: 6
       start_period: 10s
 
   phpmyadmin:
@@ -88,8 +88,8 @@ services:
     networks:
       - app-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://127.0.0.1:3000"]
-      interval: 10s
+      test: ["CMD", "curl", "-fk", "https://localhost"]
+      interval: 5s
       timeout: 5s
       retries: 3
       start_period: 10s
