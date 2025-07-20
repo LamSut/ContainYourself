@@ -49,7 +49,7 @@ if [ ! -f "$ACTIVE_COLOR_FILE" ]; then
 
   wait_for_healthy() {
     local container=$1
-    for i in {1..30}; do
+    for i in {1..20}; do
       STATUS=$(docker inspect --format='{{.State.Health.Status}}' "$container" 2>/dev/null)
       if [ "$STATUS" == "healthy" ]; then
         echo "$container is healthy."
@@ -67,7 +67,7 @@ if [ ! -f "$ACTIVE_COLOR_FILE" ]; then
   wait_for_healthy php_blue
   wait_for_healthy apache_proxy
   wait_for_healthy mysql
-  wait_for_healthy phpadmin
+  wait_for_healthy phpmyadmin
 
   echo "Initial setup complete. Active version: php_blue"  
   exit 0
@@ -86,13 +86,13 @@ echo "Built new version: php_$INACTIVE_COLOR"
 docker-compose up -d php_$INACTIVE_COLOR
 echo "Waiting for php_$INACTIVE_COLOR to become healthy..."
 
-for i in {1..30}; do
+for i in {1..20}; do
   STATUS=$(docker inspect --format='{{.State.Health.Status}}' php_$INACTIVE_COLOR 2>/dev/null)
   if [ "$STATUS" == "healthy" ]; then
     echo "php_$INACTIVE_COLOR is healthy."
     break
   fi
-  echo "Waiting... ($i/30)"
+  echo "Waiting... ($i/20)"
   sleep 2
 done
 
