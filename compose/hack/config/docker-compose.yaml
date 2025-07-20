@@ -17,6 +17,12 @@ services:
       - app-network
     command: >
       sh -c "echo 'Include conf/extra/httpd-proxy.conf' >> conf/httpd.conf && httpd-foreground"
+    healthcheck:
+      test: ["CMD", "curl", "-fk", "https://localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
 
   php_blue:
     build:
@@ -26,7 +32,7 @@ services:
     networks:
       - app-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost"]
+      test: ["CMD", "curl", "-fk", "https://localhost/login/index.php"]
       interval: 5s
       timeout: 5s
       retries: 3
@@ -40,7 +46,7 @@ services:
     networks:
       - app-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost"]
+      test: ["CMD", "curl", "-fk", "https://localhost/login/index.php"]
       interval: 5s
       timeout: 5s
       retries: 3
@@ -66,8 +72,8 @@ services:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
       timeout: 5s
-      retries: 9
-      start_period: 5s
+      retries: 3
+      start_period: 10s
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -81,6 +87,12 @@ services:
       - mysql
     networks:
       - app-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
 
 volumes:
   db_data:
