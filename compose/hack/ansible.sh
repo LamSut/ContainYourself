@@ -27,7 +27,7 @@ if [ ! -f "$ACTIVE_COLOR_FILE" ]; then
   echo "Generating SSL certificates..."
   openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
     -keyout ./ssl/server.key -out ./ssl/server.crt \
-    -subj "/C=VN/ST=CT/L=NK/O=CTU/OU=CICT/CN=localhost" \
+    -subj "/C=VN/ST=CT/L=NK/O=CTU/OU=CICT/CN=w0rm.org" \
     -addext "basicConstraints=CA:FALSE"
 
   # Comment this for local
