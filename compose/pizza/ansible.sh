@@ -36,8 +36,6 @@ echo "Public IP: $PUBLIC_IP"
 
 # Comment this for local
 sed -i "s/localhost/$PUBLIC_IP/g" ./nginx.conf
-
-# Update SWAGGER_HOST
 if grep -q "SWAGGER_HOST=" "$COMPOSE_FILE"; then
   sed -i "s/SWAGGER_HOST=.*/SWAGGER_HOST=$PUBLIC_IP/" "$COMPOSE_FILE"
 else
