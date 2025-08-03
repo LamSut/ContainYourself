@@ -55,7 +55,7 @@ if [ ! -f "$ACTIVE_COLOR_FILE" ]; then
         echo "$container is healthy."
         return
       fi
-      echo "Waiting for $container to become healthy... ($i/30)"
+      echo "Waiting for $container to become healthy... ($i/20)"
       sleep 2
     done
 
