@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LOG_FILE="./remove.log"
+LOG_FILE="./hack.log"
 exec > >(tee "$LOG_FILE") 2>&1
 
 REPO_DIR="$HOME/ContainYourself/compose/hack/repo"

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LOG_FILE="./remove.log"
+LOG_FILE="./pizza.log"
 exec > >(tee "$LOG_FILE") 2>&1
 
 REPO_DIR="$HOME/ContainYourself/compose/pizza/repo"
