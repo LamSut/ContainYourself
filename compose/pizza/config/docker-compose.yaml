@@ -34,6 +34,8 @@ services:
       - REDIS_PORT=6379
       - SWAGGER_HOST=backend
       - SWAGGER_PORT=3000
+    volumes:
+      - ./backend-api/public:/app/public
     depends_on:
       - mysql
       - redis
