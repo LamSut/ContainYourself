@@ -44,14 +44,14 @@ echo "Waiting for all pods to be in Running state..."
 minikube kubectl -- wait --for=condition=ready pod --all --timeout=300s || { echo "Pods failed to become ready"; exit 1; }
 
 # forward ports
-echo "Forwarding MySQL port..."
-minikube kubectl -- port-forward svc/mysql 3306:3306 &
+#echo "Forwarding MySQL port..."
+#minikube kubectl -- port-forward svc/mysql 3306:3306 &
 
-echo "Forwarding Redis port..."
-minikube kubectl -- port-forward svc/redis 6379:6379 &
+#echo "Forwarding Redis port..."
+#minikube kubectl -- port-forward svc/redis 6379:6379 &
 
-echo "Forwarding BE port..."
-minikube kubectl -- port-forward svc/backend 3000:3000 &
+#echo "Forwarding BE port..."
+#minikube kubectl -- port-forward svc/backend 3000:3000 &
 
 echo "Forwarding FE port..."
 minikube kubectl -- port-forward svc/frontend 5173:5173 &
